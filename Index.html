@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geothermal Heat Pump Incentive Calculator | Find Your Rebates</title>
+    <meta name="description" content="Calculate geothermal heat pump rebates and incentives from utilities across all 50 states. Find your potential savings today.">
+    <meta name="keywords" content="geothermal, heat pump, rebates, incentives, calculator, energy efficiency">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .calculator-container {
+            display: flex;
+            flex-wrap: wrap;
+            min-height: 600px;
+        }
+        
+        .input-section {
+            flex: 1;
+            min-width: 300px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-right: 1px solid #e9ecef;
+        }
+        
+        .results-section {
+            flex: 1;
+            min-width: 300px;
+            padding: 30px;
+            background: white;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        select, input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        select:focus, input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        button {
+            background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .share-btn {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            margin-top: 20px;
+        }
+
+        .share-btn:hover {
+            background: linear-gradient(135deg, #219653 0%, #27ae60 100%);
+        }
+        
+        .result-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid #3498db;
+        }
+        
+        .result-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .result-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #27ae60;
+        }
+        
+        .incentive-details {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #dee2e6;
+        }
+        
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
+        .detail-label {
+            font-weight: 500;
+            color: #6c757d;
+        }
+        
+        .detail-value {
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        .utility-info {
+            background: #e8f4fc;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        
+        .utility-name {
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .incentive-desc {
+            color: #495057;
+            line-height: 1.5;
+        }
+        
+        .disclaimer {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #6c757d;
+            text-align: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .privacy-notice {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 20px;
+            display: none;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #6c757d;
+        }
+
+        .share-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .share-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .share-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .share-btn-small {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .share-btn-small:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .share-btn-small.facebook {
+            background: linear-gradient(135deg, #3b5998 0%, #2d4373 100%);
+        }
+
+        .share-btn-small.twitter {
+            background: linear-gradient(135deg, #1da1f2 0%, #0d8bd9 100%);
+        }
+
+        .share-btn-small.linkedin {
+            background: linear-gradient(135deg, #0077b5 0%, #005885 100%);
+        }
+
+        .share-btn-small.email {
+            background: linear-gradient(135deg, #ea4335 0%, #d23c30 100%);
+        }
+
+        .copy-message {
+            margin-top: 10px;
+            color: #27ae60;
+            font-weight: 600;
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .calculator-container {
+                flex-direction: column;
+            }
+            
+            .input-section {
+                border-right: none;
+                border-bottom: 1px solid #e9ecef;
+            }
+
+            .share-buttons {
+                flex-direction: column;
+            }
+
+            .share-btn-small {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Geothermal Heat Pump Incentive Calculator</h1>
+            <p class="subtitle">Calculate rebates and savings for your geothermal installation</p>
+        </header>
+        
+        <div class="privacy-notice">
+            <strong>Privacy Notice:</strong> This calculator runs entirely in your browser. No data is stored on our servers. All calculations happen locally on your device.
+        </div>
+        
+        <div class="error-message" id="errorMessage"></div>
+        <div class="loading" id="loadingMessage">Calculating your incentives...</div>
+        
+        <div class="calculator-container">
+            <div class="input-section">
+                <h2 class="section-title">Your Information</h2>
+                
+                <div class="form-group">
+                    <label for="state">State</label>
+                    <select id="state">
+                        <option value="">Select State</option>
+                        <option value="MN">Minnesota</option>
+                        <option value="CO">Colorado</option>
+                        <option value="IL">Illinois</option>
+                        <option value="MI">Michigan</option>
+                        <option value="NJ">New Jersey</option>
+                        <option value="MA">Massachusetts</option>
+                        <option value="MO">Missouri</option>
+                        <option value="IN">Indiana</option>
+                        <option value="OH">Ohio</option>
+                        <option value="OK">Oklahoma</option>
+                        <option value="KS">Kansas</option>
+                        <option value="DE">Delaware</option>
+                        <option value="WI">Wisconsin</option>
+                        <option value="TN">Tennessee</option>
+                        <option value="VA">Virginia</option>
+                        <option value="NC">North Carolina</option>
+                        <option value="WV">West Virginia</option>
+                        <option value="SC">South Carolina</option>
+                        <option value="GA">Georgia</option>
+                        <option value="NY">New York</option>
+                        <option value="MD">Maryland</option>
+                        <option value="NM">New Mexico</option>
+                        <option value="AZ">Arizona</option>
+                        <option value="LA">Louisiana</option>
+                        <option value="MS">Mississippi</option>
+                        <option value="AL">Alabama</option>
+                        <option value="PA">Pennsylvania</option>
+                        <option value="OR">Oregon</option>
+                        <option value="ID">Idaho</option>
+                        <option value="CA">California</option>
+                        <option value="MT">Montana</option>
+                        <option value="WY">Wyoming</option>
+                        <option value="FL">Florida</option>
+                        <option value="NV">Nevada</option>
+                        <option value="UT">Utah</option>
+                        <option value="WA">Washington</option>
+                        <option value="AR">Arkansas</option>
+                        <option value="TX">Texas</option>
+                        <option value="IA">Iowa</option>
+                        <option value="KY">Kentucky</option>
+                        <option value="ND">North Dakota</option>
+                        <option value="SD">South Dakota</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="utility">Utility Company</label>
+                    <select id="utility">
+                        <option value="">Select State First</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="systemSize">System Size (Tons)</label>
+                    <input type="number" id="systemSize" min="1" max="20" step="0.5" value="4" placeholder="Enter system size in tons">
+                </div>
+                
+                <div class="form-group">
+                    <label for="systemCost">Estimated System Cost ($)</label>
+                    <input type="number" id="systemCost" min="1000" step="100" value="25000" placeholder="Enter total system cost">
+                </div>
+                
+                <div class="form-group">
+                    <label for="efficiency">System Efficiency (EER)</label>
+                    <input type="number" id="efficiency" min="10" max="40" step="0.1" value="20" placeholder="Enter EER rating">
+                </div>
+                
+                <button id="calculateBtn">Calculate Incentives</button>
+                
+                <div class="disclaimer">
+                    <p>This calculator provides estimates based on available incentive programs. Actual rebates may vary based on specific program requirements and qualifications.</p>
+                </div>
+            </div>
+            
+            <div class="results-section">
+                <h2 class="section-title">Your Savings</h2>
+                
+                <div class="result-card">
+                    <div class="result-title">Utility Rebate</div>
+                    <div class="result-value" id="utilityRebate">$0</div>
+                    <div class="incentive-details" id="utilityDetails">
+                        <!-- Utility incentive details will appear here -->
+                    </div>
+                </div>
+                
+                <div class="result-card">
+                    <div class="result-title">State Incentive</div>
+                    <div class="result-value" id="stateIncentive">$0</div>
+                    <div class="incentive-details" id="stateDetails">
+                        <!-- State incentive details will appear here -->
+                    </div>
+                </div>
+                
+                <div class="result-card">
+                    <div class="result-title">Federal Tax Credit (26%)</div>
+                    <div class="result-value" id="federalCredit">$0</div>
+                    <div class="incentive-details">
+                        <div class="detail-item">
+                            <span class="detail-label">System Cost:</span>
+                            <span class="detail-value" id="systemCostDisplay">$0</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Credit Rate:</span>
+                            <span class="detail-value">26%</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="result-card">
+                    <div class="result-title">Total Incentives</div>
+                    <div class="result-value" id="totalIncentives">$0</div>
+                    <div class="incentive-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Net System Cost:</span>
+                            <span class="detail-value" id="netCost">$0</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Percent of Cost Covered:</span>
+                            <span class="detail-value" id="percentCovered">0%</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="utility-info" id="utilityInfo">
+                    <!-- Utility information will appear here -->
+                </div>
+
+                <!-- Share Section -->
+                <div class="share-section" id="shareSection" style="display: none;">
+                    <div class="share-title">Share Your Results</div>
+                    <div class="share-buttons">
+                        <button class="share-btn-small facebook" onclick="shareOnFacebook()">
+                            Facebook
+                        </button>
+                        <button class="share-btn-small twitter" onclick="shareOnTwitter()">
+                            Twitter
+                        </button>
+                        <button class="share-btn-small linkedin" onclick="shareOnLinkedIn()">
+                            LinkedIn
+                        </button>
+                        <button class="share-btn-small email" onclick="shareByEmail()">
+                            Email
+                        </button>
+                        <button class="share-btn-small" onclick="copyToClipboard()">
+                            Copy Link
+                        </button>
+                    </div>
+                    <div class="copy-message" id="copyMessage">
+                        Link copied to clipboard!
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="disclaimer">
+            <p><strong>Disclaimer:</strong> This calculator provides estimates based on publicly available incentive programs. Actual rebates may vary based on specific program requirements, qualifications, and available funding. Always verify with your utility provider before making purchase decisions. Program details change frequently - we recommend checking with your utility for the most current information.</p>
+            <p>Last updated: December 2024</p>
+        </div>
+    </div>
+
+    <script>
+        // Comprehensive utility data from the Excel sheet
+        const utilityData = {
+            // Minnesota (MN) - Full implementation
+            MN: {
+                stateIncentive: {
+                    name: "Geothermal Planning Grant Program",
+                    value: 0,
+                    description: "Planning grant program for geothermal projects"
+                },
+                utilities: {
+                    "Xcel Energy": {
+                        type: "Investor-Owned",
+                        incentive: "$500/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 500,
+                        link: "https://co.my.xcelenergy.com/s/residential/heating-cooling/heat-pumps"
+                    },
+                    "Minnesota Power": {
+                        type: "Investor-Owned",
+                        incentive: "$1,000/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 1000,
+                        link: "https://www.mnpower.com/ProgramsRebates/RebatesAndSavings"
+                    },
+                    "Otter Tail Power Company": {
+                        type: "Investor-Owned",
+                        incentive: "up to $1,640/ton rebate",
+                        calculation: (tons, cost, eer) => Math.min(tons * 1640, cost * 0.5),
+                        link: "https://www.otpco.com/ways-to-save/programs/heat-pump/"
+                    },
+                    "Agralite Electric Cooperative": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$400/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 400,
+                        link: "https://www.agralite.coop/rebates"
+                    },
+                    "Arrowhead Cooperative": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$400/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 400,
+                        link: "https://arrowheadcoop.com/rebates/"
+                    },
+                    "Beltrami Electric Cooperative": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$400/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 400,
+                        link: "https://www.beltramielectric.com/rebates-and-incentives"
+                    },
+                    "Benco Electric Cooperative": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$200-$400/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 300,
+                        link: "https://www.benco.org/heating-and-cooling"
+                    },
+                    "Brown County Rural Electric": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "up to $400-500/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 450,
+                        link: "https://www.browncountyrea.coop/rebates"
+                    },
+                    "Clearwater Polk Electric Cooperative": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$250/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 250,
+                        link: "https://www.clearwater-polk.com/sites/default/files/Electric%20Rebates%20%20Application%20-%202024%20Clearwater-Polk%20(003).pdf"
+                    },
+                    "Connexus Energy": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$600/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 600,
+                        link: "https://www.connexusenergy.com/residential/save-money-and-energy/rebates-and-programs/heating-and-cooling"
+                    },
+                    "Cooperative Light & Power": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "up to $500/ton rebate",
+                        calculation: (tons, cost, eer) => Math.min(tons * 500, cost * 0.3),
+                        link: "https://www.clpower.com/sites/default/files/2024%20Residential%20Overview.pdf"
+                    },
+                    "Crow Wing Power": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$1,500/unit rebate",
+                        calculation: (tons, cost, eer) => 1500,
+                        link: "https://www.cwpower.com/rebates"
+                    },
+                    "Dakota Electric Association": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "up to $500/ton rebate",
+                        calculation: (tons, cost, eer) => Math.min(tons * 500, cost * 0.3),
+                        link: "https://www.dakotaelectric.com/member-services/programs-rebates/for-your-home/energy-wise-rebates/"
+                    },
+                    "East Central Energy": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$400/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 400,
+                        link: "https://www.eastcentralenergy.com/heating-cooling-options"
+                    },
+                    "Federated Rural Electric": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$400/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 400,
+                        link: "https://federatedrea.coop/sites/default/files/2024%20fed%20Residential%20GSHP.pdf"
+                    },
+                    "Freeborn-Mower Electric Cooperative": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$500/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 500,
+                        link: "https://www.fmec.coop/sites/default/files/downloadable_information/Rebates/2024/HVAC%20Rebate%20Form%20Fillable%20-%202024.pdf"
+                    },
+                    "Goodhue County Co-op Electric": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$400/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 400,
+                        link: "https://www.gccea.com/member-rebates"
+                    },
+                    "Itasca-Mantrap Cooperative": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$400/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 400,
+                        link: "https://www.itasca-mantrap.com/rebates"
+                    },
+                    "Kandiyohi Power Cooperative": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$400/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 400,
+                        link: "https://www.kpcoop.com/rebates-incentives"
+                    },
+                    "Lake Country Power Cooperative": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$400/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 400,
+                        link: "https://www.lakecountrypower.coop/sites/default/files/money_saving_programs/rebates/2024%20Rebates/2024%20Ground%20Source%20HP%20Rebate%20%28complete%202.5.24%29.pdf"
+                    },
+                    "Lake Region Electric Cooperative": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$400/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 400,
+                        link: "https://www.lrec.coop/energy-services/rebates-loans-and-tax-credits/"
+                    },
+                    "Lyon-Lincoln Electric Cooperative": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "up to $800/unit rebate",
+                        calculation: (tons, cost, eer) => Math.min(800, cost * 0.2),
+                        link: "https://www.lyon-lincoln.com/rebates"
+                    },
+                    "McLeod Cooperative Power": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$400/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 400,
+                        link: "https://www.mcleodcoop.com/products/rebates/"
+                    },
+                    "Meeker Cooperative": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$400/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 400,
+                        link: "https://www.meeker.coop/programs/"
+                    },
+                    "MiEnergy Cooperative": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$500/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 500,
+                        link: "https://www.mienergy.coop/sites/default/files/pdf/Rebates/2024IncentiveFormHVACWcost.pdf"
+                    },
+                    "Mille Lacs Energy Cooperative": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$400/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 400,
+                        link: "https://www.mlecmn.net/rebates-incentives"
+                    },
+                    "Minnesota Valley Cooperative Light & Power Association": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$12/1,000 Btu rebate",
+                        calculation: (tons, cost, eer) => (tons * 12000) * 12 / 1000,
+                        link: "https://www.mnvalleyrec.com/member-services/heating-and-cooling-systems"
+                    },
+                    "Minnesota Valley Electric Cooperative": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$200/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 200,
+                        link: "https://www.mvec.net/rebates-3/"
+                    },
+                    "Nobles Cooperative Electric": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$200/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 200,
+                        link: "https://nobles.coop/residential-rebates/residential-heat-pump/"
+                    },
+                    "North Itasca Electric Co-op": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$400/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 400,
+                        link: "https://northitascaelectric.com/member-services/space-heating/"
+                    },
+                    "North Star Electric Cooperative": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$250/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 250,
+                        link: "https://www.northstarelectric.com/residential-incentive-application"
+                    },
+                    "Peoples Energy Cooperative": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$400/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 400,
+                        link: "https://www.peoplesenergy.coop/energy-efficiency"
+                    },
+                    "PKM Electric Co-op Inc": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$500/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 500,
+                        link: "https://www.pkmcoop.com/wp-content/uploads/2017/06/Electric-Rebate_PKM2024.pdf"
+                    },
+                    "Red River Valley Co-op Power Association": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$500/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 500,
+                        link: "https://www.rrvcoop.com/energy-saving-programs/rebates"
+                    },
+                    "Redwood Electric Cooperative": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$600/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 600,
+                        link: "https://www.redwoodelectric.com/rebate-programs"
+                    },
+                    "Renville-Sibley Co-op Power": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$800/unit rebate",
+                        calculation: (tons, cost, eer) => 800,
+                        link: "https://www.rscpa.coop/heating-and-cooling-system-rebates"
+                    },
+                    "Roseau Electric Cooperative": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$50/kW installed rebate",
+                        calculation: (tons, cost, eer) => (tons * 3.517) * 50,
+                        link: "https://www.roseauelectric.coop/products-services/rebate-programs"
+                    },
+                    "Runestone Electric Association": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$400/unit rebate",
+                        calculation: (tons, cost, eer) => 400,
+                        link: "https://www.runestoneelectric.com/energy-wise-programs/residential-rebates/"
+                    },
+                    "Sioux Valley Energy": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$1,200/unit rebate",
+                        calculation: (tons, cost, eer) => 1200,
+                        link: "https://siouxvalleyenergy.com/programs-and-rebates"
+                    },
+                    "Stearns Electric Cooperative": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$150/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 150,
+                        link: "https://www.stearnselectric.org/heating-and-cooling-rebates"
+                    },
+                    "Steele-Waseca Cooperative Electric": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$100/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 100,
+                        link: "https://swce.coop/swce-field-services/save-money-and-energy/"
+                    },
+                    "Todd-Wadena Electric Cooperative": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$400/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 400,
+                        link: "https://toddwadena.coop/services/rebates/heat-pumps/"
+                    },
+                    "Traverse Electric Co-op Inc": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$.0562/kWh rate",
+                        calculation: (tons, cost, eer) => 0,
+                        link: "https://www.traverseelectric.com/rebates-and-incentives"
+                    },
+                    "Wild Rice Electric Co-op Inc": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$200-400/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 300,
+                        link: "https://www.wildriceelectric.com/rebates"
+                    },
+                    "Wright-Hennipen Cooperative Electric Association": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$1,950/unit + $.10500/kWh rate",
+                        calculation: (tons, cost, eer) => 1950,
+                        link: "https://www.whe.org/energy-savings-rebates/residential-programs-and-rebates/ground-source-heat-pump.html"
+                    },
+                    "New Prague Utilities Commission": {
+                        type: "Public Power/Municipal Electric Provider",
+                        incentive: "$200/ton +$20/ton for each 1 EER",
+                        calculation: (tons, cost, eer) => (tons * 200) + (tons * 20 * (eer - 10)),
+                        link: "https://www.newpragueutilities.com"
+                    },
+                    "Austin Utilities": {
+                        type: "Public Power/Municipal Electric Provider",
+                        incentive: "$200/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 200,
+                        link: "https://www.austinutilities.com/residential/rebates-programs"
+                    },
+                    "Alexandria Light and Power": {
+                        type: "Public Power/Municipal Electric Provider",
+                        incentive: "$200/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 200,
+                        link: "https://www.alputilities.com/residential/rebates-programs/#explore"
+                    },
+                    "Willmar Municipal Utilities": {
+                        type: "Public Power/Municipal Electric Provider",
+                        incentive: "$200/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 200,
+                        link: "https://www.brightenergysolutions.com/members/willmar-municipal-utilities?rebates=residential"
+                    },
+                    "Redwood Falls Public Utilities": {
+                        type: "Public Power/Municipal Electric Provider",
+                        incentive: "$200/ton +$20/ton for each 1 EER",
+                        calculation: (tons, cost, eer) => (tons * 200) + (tons * 20 * (eer - 10)),
+                        link: "https://www.redwoodfalls.org/public-utilities"
+                    },
+                    "Preston Public Utilities": {
+                        type: "Public Power/Municipal Electric Provider",
+                        incentive: "$200/ton +$20/ton for each 1 EER",
+                        calculation: (tons, cost, eer) => (tons * 200) + (tons * 20 * (eer - 10)),
+                        link: "https://www.prestonmn.org/public-utilities"
+                    },
+                    "Mora Municipal Utilities": {
+                        type: "Public Power/Municipal Electric Provider",
+                        incentive: "$200/ton +$20/ton for each 1 EER",
+                        calculation: (tons, cost, eer) => (tons * 200) + (tons * 20 * (eer - 10)),
+                        link: "https://www.ci.mora.mn.us/utilities"
+                    },
+                    "Spring Valley Public Utilities": {
+                        type: "Public Power/Municipal Electric Provider",
+                        incentive: "$200/ton +$20/ton for each 1 EER",
+                        calculation: (tons, cost, eer) => (tons * 200) + (tons * 20 * (eer - 10)),
+                        link: "https://www.springvalley.gov/utilities"
+                    },
+                    "Fairmont Public Utilities": {
+                        type: "Public Power/Municipal Electric Provider",
+                        incentive: "$200/ton +$20/ton for each 1 EER",
+                        calculation: (tons, cost, eer) => (tons * 200) + (tons * 20 * (eer - 10)),
+                        link: "https://www.fairmont.org/public-utilities"
+                    },
+                    "Grand Marais PUC": {
+                        type: "Public Power/Municipal Electric Provider",
+                        incentive: "$200/ton +$20/ton for each 1 EER",
+                        calculation: (tons, cost, eer) => (tons * 200) + (tons * 20 * (eer - 10)),
+                        link: "https://smmpa.com/members/grand-marais"
+                    },
+                    "Litchfield Public Utilities": {
+                        type: "Public Power/Municipal Electric Provider",
+                        incentive: "$200/ton +$20/ton for each 1 EER",
+                        calculation: (tons, cost, eer) => (tons * 200) + (tons * 20 * (eer - 10)),
+                        link: "https://smmpa.com/members/litchfield"
+                    },
+                    "Elk River Municipal Utilities": {
+                        type: "Public Power/Municipal Electric Provider",
+                        incentive: "$600/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 600,
+                        link: "https://www.ermumn.com/programs-rebates/residential-rebates/heat-pumps"
+                    },
+                    "Blooming Prairie Public Utilities": {
+                        type: "Public Power/Municipal Electric Provider",
+                        incentive: "$200/ton +$20/ton for each 1 EER",
+                        calculation: (tons, cost, eer) => (tons * 200) + (tons * 20 * (eer - 10)),
+                        link: "https://www.bloomingprairie.net/utilities"
+                    },
+                    "Marshall Municipal Utilities": {
+                        type: "Public Power/Municipal Electric Provider",
+                        incentive: "$200/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 200,
+                        link: "https://www.marshallutilities.com/index.php/business/commercial-rebates-conservation"
+                    },
+                    "Hutchison Utilities Commission": {
+                        type: "Public Power/Municipal Electric Provider",
+                        incentive: "$200/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 200,
+                        link: "https://www.brightenergysolutions.com/members/hutchinson-utilities-commission?rebates=residential"
+                    },
+                    "Owatonna Public Utilities": {
+                        type: "Public Power/Municipal Electric Provider",
+                        incentive: "$200/ton +$20/ton for each 1 EER",
+                        calculation: (tons, cost, eer) => (tons * 200) + (tons * 20 * (eer - 10)),
+                        link: "https://www.owatonna.gov/residential-rebates"
+                    },
+                    "Shakopee Public Utilities": {
+                        type: "Public Power/Municipal Electric Provider",
+                        incentive: "$500/unit rebate",
+                        calculation: (tons, cost, eer) => 500,
+                        link: "https://shakopeeutilities.com/residential/2024-residential-rebates-2/"
+                    },
+                    "Saint Peter Municipal Utilities": {
+                        type: "Public Power/Municipal Electric Provider",
+                        incentive: "$200/ton +$20/ton for each 1 EER",
+                        calculation: (tons, cost, eer) => (tons * 200) + (tons * 20 * (eer - 10)),
+                        link: "https://www.saintpetermn.gov/utilities"
+                    },
+                    "Lake City Utilities": {
+                        type: "Public Power/Municipal Electric Provider",
+                        incentive: "$200/ton +$20/ton for each 1 EER",
+                        calculation: (tons, cost, eer) => (tons * 200) + (tons * 20 * (eer - 10)),
+                        link: "https://www.ci.lake-city.mn.us/utilities"
+                    },
+                    "Waseca Utilities": {
+                        type: "Public Power/Municipal Electric Provider",
+                        incentive: "$200/ton +$20/ton for each 1 EER",
+                        calculation: (tons, cost, eer) => (tons * 200) + (tons * 20 * (eer - 10)),
+                        link: "https://www.ci.waseca.mn.us/utilities"
+                    },
+                    "Rochester Public Utilities": {
+                        type: "Public Power/Municipal Electric Provider",
+                        incentive: "$200/ton +$20/ton for each 1 EER",
+                        calculation: (tons, cost, eer) => (tons * 200) + (tons * 20 * (eer - 10)),
+                        link: "https://www.rpu.org/rebates-programs/residential/conserve-save-rebates.php"
+                    }
+                }
+            },
+
+            // Illinois (IL) - Full implementation
+            IL: {
+                stateIncentive: {
+                    name: "None",
+                    value: 0,
+                    description: "No state-level geothermal incentives"
+                },
+                utilities: {
+                    "Commonwealth Edison (ComEd)": {
+                        type: "Investor-Owned Utilities",
+                        incentive: "up to $6,000/home",
+                        calculation: (tons, cost, eer) => Math.min(6000, cost * 0.3),
+                        link: "https://www.comed.com/WaysToSave/ForYourHome/Pages/Home-Heating-Cooling-Discounts.aspx"
+                    },
+                    "MidAmerican Energy Company": {
+                        type: "Investor-Owned Utilities",
+                        incentive: "$900-$1,200/unit",
+                        calculation: (tons, cost, eer) => 1050, // Average
+                        link: "https://www.midamericanenergy.com/home-discounts-and-rebates#Rebates"
+                    },
+                    "JCE Energy": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$600/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 600,
+                        link: "https://jcecoop.com/incentives"
+                    },
+                    "Corn Belt Energy": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$1,500/unit rebate + Loop Install Program",
+                        calculation: (tons, cost, eer) => 1500,
+                        link: "https://cornbeltenergy.com/geocents/"
+                    },
+                    "Enerstar Electric Cooperative": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$2,000/unit rebate",
+                        calculation: (tons, cost, eer) => 2000,
+                        link: "https://www.powermoves.com/rebates/residential/"
+                    },
+                    "M.J.M Electric Cooperative": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$2,000/unit rebate",
+                        calculation: (tons, cost, eer) => 2000,
+                        link: "https://www.powermoves.com/rebates/residential/"
+                    },
+                    "Adams Electric Cooperative": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "Loan Program",
+                        calculation: (tons, cost, eer) => 0,
+                        link: "https://adamselectric.coop/member-services/energyefficiencymembers/"
+                    },
+                    "Menard Electric Cooperative": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$300/unit rebate",
+                        calculation: (tons, cost, eer) => 300,
+                        link: "https://menard.com/incentives"
+                    },
+                    "Western Illinois Electrical Cooperative": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$1,000/unit bill credit, Loan Program, Geo Rate",
+                        calculation: (tons, cost, eer) => 1000,
+                        link: "https://wiec.net/geothermal-heating-and-cooling/"
+                    },
+                    "WayneWhite Counties Electric Cooperative": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$2,000/unit rebate",
+                        calculation: (tons, cost, eer) => 2000,
+                        link: "https://wwcec.com/geothermal-technology"
+                    },
+                    "Clinton County Electric Cooperative": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$7.50/month bill credit",
+                        calculation: (tons, cost, eer) => 7.50 * 12, // Annual value
+                        link: "https://www.cceci.com/member-benefits-and-programs/"
+                    },
+                    "Springfield City Water, Light & Power (CWLP)": {
+                        type: "Public Power/Municipal Electric Provider",
+                        incentive: "$200-800/ton rebate",
+                        calculation: (tons, cost, eer) => tons * 500, // Average
+                        link: "https://www.cwlp.com/rebates"
+                    }
+                }
+            },
+
+            // Michigan (MI) - Full implementation
+            MI: {
+                stateIncentive: {
+                    name: "None",
+                    value: 0,
+                    description: "No state-level geothermal incentives"
+                },
+                utilities: {
+                    "Consumers Energy": {
+                        type: "Investor-Owned Utilities",
+                        incentive: "$300/unit rebate",
+                        calculation: (tons, cost, eer) => 300,
+                        link: "https://www.consumersenergy.com/-/media/CE/Documents/residential/save-money-and-energy/rebates/hvac/res-programs.pdf"
+                    },
+                    "DTE Energy": {
+                        type: "Investor-Owned Utilities",
+                        incentive: "$800/unit rebate",
+                        calculation: (tons, cost, eer) => 800,
+                        link: "https://www.dteenergy.com/us/en/residential/save-money-energy/rebates-and-offers/air-conditioners.html"
+                    },
+                    "Alger Delta Cooperative Electric Association": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$4,000/unit rebate ($2k/$2k, unit & loop)",
+                        calculation: (tons, cost, eer) => 4000,
+                        link: "https://www.algerdelta.com/hvac-rebates"
+                    },
+                    "Cherryland Electric Cooperative": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$2,000/unit rebate",
+                        calculation: (tons, cost, eer) => 2000,
+                        link: "https://www.cherryland.com/energy-efficiency-rebates"
+                    },
+                    "Great Lakes Energy Cooperative": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$4,500/unit rebate ($2k/$2.5k, unit & loop)+$500 for desuperheater",
+                        calculation: (tons, cost, eer) => 4500,
+                        link: "https://www.gtlakes.com/energy-wise/"
+                    },
+                    "HomeWorks Tri-County Electric Cooperative": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$4,000/unit rebate ($1.5k/$2.5k, unit & loop) + $500 for desuperheater",
+                        calculation: (tons, cost, eer) => 4000,
+                        link: "https://www.homeworksecoop.com/energy-efficiency-rebates-programs"
+                    },
+                    "Ontonagon County REA": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$1,000/unit rebate",
+                        calculation: (tons, cost, eer) => 1000,
+                        link: "https://www.mienergy.org/energy-innovation-collaborative"
+                    },
+                    "Presque Isle Electric & Gas Co-op": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$4,000/unit rebate ($1.5k/$2.5k, unit & loop) + $500 for desuperheater",
+                        calculation: (tons, cost, eer) => 4000,
+                        link: "https://pieg.com/energy-optimization-rebates/#182ff2362774c73db"
+                    },
+                    "Thumb Electric Cooperative": {
+                        type: "Rural Electric Cooperatives",
+                        incentive: "$2,000/unit rebate",
+                        calculation: (tons, cost, eer) => 2000,
+                        link: "https://www.thumbelectric.com/rebates-programs"
+                    },
+                    "City of Crystal Falls": {
+                        type: "Public Power/Municipal Electric Provider",
+                        incentive: "$1,000/unit rebate",
+                        calculation: (tons, cost, eer) => 1000,
+                        link: "https://www.mienergy.org/energy-innovation-collaborative"
+                    },
+                    "City of Negaunee": {
+                        type: "Public Power/Municipal Electric Provider",
+                        incentive: "$1,000/unit rebate",
+                        calculation: (tons, cost, eer) => 1000,
+                        link: "https://www.mienergy.org/energy-innovation-collaborative"
+                    },
+                    "City of Norway": {
+                        type: "Public Power/Municipal Electric Provider",
+                        incentive: "$1,000/unit rebate",
+                        calculation: (tons, cost, eer) => 1000,
+                        link: "https://www.mienergy.org/energy-innovation-collaborative"
+                    }
+                }
+            },
+
+            // Add basic structure for other states
+            CO: { stateIncentive: { name: "Check State Programs", value: 0, description: "Check with your state energy office" }, utilities: {} },
+            NJ: { stateIncentive: { name: "Check State Programs", value: 0, description: "Check with your state energy office" }, utilities: {} },
+            MA: { stateIncentive: { name: "Check State Programs", value: 0, description: "Check with your state energy office" }, utilities: {} },
+            MO: { stateIncentive: { name: "Check State Programs", value: 0, description: "Check with your state energy office" }, utilities: {} },
+            IN: { stateIncentive: { name: "Check State Programs", value: 0, description: "Check with your state energy office" }, utilities: {} },
+            OH: { stateIncentive: { name: "Check State Programs", value: 0, description: "Check with your state energy office" }, utilities: {} },
+            OK: { stateIncentive: { name: "Check State Programs", value: 0, description: "Check with your state energy office" }, utilities: {} },
+            KS: { stateIncentive: { name: "Check State Programs", value: 0, description: "Check with your state energy office" }, utilities: {} },
+            DE: { stateIncentive: { name: "Check State Programs", value: 0, description: "Check with your state energy office" }, utilities: {} },
+            WI: { stateIncentive: { name: "Check State Programs", value: 0, description: "Check with your state energy office" }, utilities: {} },
+            TN: { stateIncentive: { name: "Check State Programs", value: 0, description: "Check with your state energy office" }, utilities: {} },
+            VA: { stateIncentive: { name: "Check State Programs", value: 0, description: "Check with your state energy office" }, utilities: {} },
+            NC: { stateIncentive: { name: "Check State Programs", value: 0, description: "Check with your state energy office" }, utilities: {} },
+            WV: { stateIncentive: { name: "Check State Programs", value: 0, description: "Check with your state energy office" }, utilities: {} },
+            SC: { stateIncentive: { name: "Check State Programs", value: 0, description: "Check with your state energy office" }, utilities: {} },
+            GA: { stateIncentive: { name: "Check State Programs", value: 0, description: "Check with your state energy office" }, utilities: {} },
+            NY: { stateIncentive: { name: "Check State Programs", value: 0, description: "Check with your state energy office" }, utilities: {} },
+            MD: { stateIncentive: { name: "Check State Programs", value: 0, description: "Check with your state energy office" }, utilities: {} },
+            NM: { stateIncentive: { name: "Check State Programs", value: 0, description: "Check with your state energy office" }, utilities: {} },
+            AZ: { stateIncentive: { name: "Check State Programs", value: 0, description: "Check with your state energy office" }, utilities: {} },
+            LA: { stateIncentive: { name: "Check State Programs", value: 0, description: "Check with your state energy office" }, utilities: {} },
+            MS: { stateIncentive: { name: "Check State Programs", value: 0, description: "Check with your state energy office" }, utilities: {} },
+            AL: { stateIncentive: { name: "Check State Programs", value: 0, description: "Check with your state energy office" }, utilities: {} },
+            PA: { stateIncentive: { name: "Check State Programs", value: 0, description: "Check with your state energy office" }, utilities: {} },
+            OR: { stateIncentive: { name: "Check State Programs", value: 0, description: "Check with your state energy office" }, utilities: {} },
+            ID: { stateIncentive: { name: "Check State Programs", value: 0, description: "Check with your state energy office" }, utilities: {} },
+            CA: { stateIncentive: { name: "Check State Programs", value: 0, description: "Check with your state energy office" }, utilities: {} },
+            MT: { stateIncentive: { name: "Check State Programs", value: 0, description: "Check with your state energy office" }, utilities: {} },
+            WY: { stateIncentive: { name: "Check State Programs", value: 0, description: "Check with your state energy office" }, utilities: {} },
+            FL: { stateIncentive: { name: "Check State Programs", value: 0, description: "Check with your state energy office" }, utilities: {} },
+            NV: { stateIncentive: { name: "Check State Programs", value: 0, description: "Check with your state energy office" }, utilities: {} },
+            UT: { stateIncentive: { name: "Check State Programs", value: 0, description: "Check with your state energy office" }, utilities: {} },
+            WA: { stateIncentive: { name: "Check State Programs", value: 0, description: "Check with your state energy office" }, utilities: {} },
+            AR: { stateIncentive: { name: "Check State Programs", value: 0, description: "Check with your state energy office" }, utilities: {} },
+            TX: { stateIncentive: { name: "Check State Programs", value: 0, description: "Check with your state energy office" }, utilities: {} },
+            IA: { stateIncentive: { name: "Check State Programs", value: 0, description: "Check with your state energy office" }, utilities: {} },
+            KY: { stateIncentive: { name: "Check State Programs", value: 0, description: "Check with your state energy office" }, utilities: {} },
+            ND: { stateIncentive: { name: "Check State Programs", value: 0, description: "Check with your state energy office" }, utilities: {} },
+            SD: { stateIncentive: { name: "Check State Programs", value: 0, description: "Check with your state energy office" }, utilities: {} },
+
+            // Default state for states not fully implemented
+            "DEFAULT": {
+                stateIncentive: {
+                    name: "Check State Programs",
+                    value: 0,
+                    description: "Check with your state energy office for available incentives"
+                },
+                utilities: {
+                    "Contact Your Local Utility": {
+                        type: "Utility Provider",
+                        incentive: "Contact utility for current rebates",
+                        calculation: (tons, cost, eer) => 0,
+                        link: "#"
+                    }
+                }
+            }
+        };
+
+        // DOM elements
+        const stateSelect = document.getElementById('state');
+        const utilitySelect = document.getElementById('utility');
+        const systemSizeInput = document.getElementById('systemSize');
+        const systemCostInput = document.getElementById('systemCost');
+        const efficiencyInput = document.getElementById('efficiency');
+        const calculateBtn = document.getElementById('calculateBtn');
+        const errorMessageEl = document.getElementById('errorMessage');
+        const loadingMessageEl = document.getElementById('loadingMessage');
+        const shareSection = document.getElementById('shareSection');
+        const copyMessage = document.getElementById('copyMessage');
+
+        // Result elements
+        const utilityRebateEl = document.getElementById('utilityRebate');
+        const stateIncentiveEl = document.getElementById('stateIncentive');
+        const federalCreditEl = document.getElementById('federalCredit');
+        const totalIncentivesEl = document.getElementById('totalIncentives');
+        const netCostEl = document.getElementById('netCost');
+        const percentCoveredEl = document.getElementById('percentCovered');
+        const utilityDetailsEl = document.getElementById('utilityDetails');
+        const stateDetailsEl = document.getElementById('stateDetails');
+        const systemCostDisplayEl = document.getElementById('systemCostDisplay');
+        const utilityInfoEl = document.getElementById('utilityInfo');
+
+        // Current results for sharing
+        let currentResults = {
+            state: '',
+            utility: '',
+            systemSize: 0,
+            systemCost: 0,
+            utilityRebate: 0,
+            stateIncentive: 0,
+            federalCredit: 0,
+            totalIncentives: 0
+        };
+
+        // Share functions
+        function getShareableLink() {
+            const baseUrl = window.location.href.split('?')[0];
+            return baseUrl;
+        }
+
+        function getShareMessage() {
+            return `I just calculated my geothermal heat pump incentives! 💰
+
+State: ${currentResults.state}
+Utility: ${currentResults.utility}
+System: ${currentResults.systemSize} tons
+
+Potential Savings:
+🏠 Utility Rebate: $${currentResults.utilityRebate.toLocaleString()}
+🏛️ State Incentive: $${currentResults.stateIncentive.toLocaleString()}
+🇺🇸 Federal Tax Credit: $${currentResults.federalCredit.toLocaleString()}
+💰 TOTAL INCENTIVES: $${currentResults.totalIncentives.toLocaleString()}
+
+Calculate your own savings: ${getShareableLink()}
+
+#Geothermal #HeatPump #EnergySavings #RenewableEnergy`;
+        }
+
+        function shareOnFacebook() {
+            const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(getShareableLink())}`;
+            window.open(url, '_blank', 'width=600,height=400');
+        }
+
+        function shareOnTwitter() {
+            const text = `I just calculated $${currentResults.totalIncentives.toLocaleString()} in geothermal incentives! Check your savings:`;
+            const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(getShareableLink())}`;
+            window.open(url, '_blank', 'width=600,height=400');
+        }
+
+        function shareOnLinkedIn() {
+            const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(getShareableLink())}`;
+            window.open(url, '_blank', 'width=600,height=400');
+        }
+
+        function shareByEmail() {
+            const subject = `My Geothermal Heat Pump Incentives: $${currentResults.totalIncentives.toLocaleString()} in Savings`;
+            const body = getShareMessage();
+            const url = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.location.href = url;
+        }
+
+        function copyToClipboard() {
+            const message = getShareMessage();
+            navigator.clipboard.writeText(message).then(() => {
+                copyMessage.style.display = 'block';
+                setTimeout(() => {
+                    copyMessage.style.display = 'none';
+                }, 3000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = message;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                copyMessage.style.display = 'block';
+                setTimeout(() => {
+                    copyMessage.style.display = 'none';
+                }, 3000);
+            });
+        }
+
+        // Utility functions
+        function showError(message) {
+            errorMessageEl.textContent = message;
+            errorMessageEl.style.display = 'block';
+            setTimeout(() => {
+                errorMessageEl.style.display = 'none';
+            }, 5000);
+        }
+
+        function showLoading(show) {
+            loadingMessageEl.style.display = show ? 'block' : 'none';
+        }
+
+        function validateInputs(state, utility, systemSize, systemCost, efficiency) {
+            if (!state) {
+                showError('Please select your state');
+                return false;
+            }
+            if (!utility) {
+                showError('Please select your utility company');
+                return false;
+            }
+            if (!systemSize || systemSize < 1 || systemSize > 20) {
+                showError('Please enter a valid system size between 1 and 20 tons');
+                return false;
+            }
+            if (!systemCost || systemCost < 1000) {
+                showError('Please enter a valid system cost (minimum $1,000)');
+                return false;
+            }
+            if (!efficiency || efficiency < 10 || efficiency > 40) {
+                showError('Please enter a valid efficiency rating between 10 and 40 EER');
+                return false;
+            }
+            return true;
+        }
+
+        // Event listeners
+        stateSelect.addEventListener('change', updateUtilityOptions);
+        calculateBtn.addEventListener('click', calculateIncentives);
+
+        // Initialize utility options
+        function updateUtilityOptions() {
+            const state = stateSelect.value;
+            utilitySelect.innerHTML = '<option value="">Select Utility</option>';
+            
+            if (state && utilityData[state]) {
+                const utilities = utilityData[state].utilities;
+                if (Object.keys(utilities).length === 0) {
+                    const defaultUtils = utilityData["DEFAULT"].utilities;
+                    for (const utilityName in defaultUtils) {
+                        const option = document.createElement('option');
+                        option.value = utilityName;
+                        option.textContent = utilityName;
+                        utilitySelect.appendChild(option);
+                    }
+                } else {
+                    for (const utilityName in utilities) {
+                        const option = document.createElement('option');
+                        option.value = utilityName;
+                        option.textContent = utilityName;
+                        utilitySelect.appendChild(option);
+                    }
+                }
+            } else if (state) {
+                const defaultUtils = utilityData["DEFAULT"].utilities;
+                for (const utilityName in defaultUtils) {
+                    const option = document.createElement('option');
+                    option.value = utilityName;
+                    option.textContent = utilityName;
+                    utilitySelect.appendChild(option);
+                }
+            }
+        }
+
+        // Main calculation function
+        function calculateIncentives() {
+            try {
+                const state = stateSelect.value;
+                const utilityName = utilitySelect.value;
+                const systemSize = parseFloat(systemSizeInput.value);
+                const systemCost = parseFloat(systemCostInput.value);
+                const efficiency = parseFloat(efficiencyInput.value);
+
+                if (!validateInputs(state, utilityName, systemSize, systemCost, efficiency)) {
+                    return;
+                }
+
+                showLoading(true);
+
+                setTimeout(() => {
+                    const stateData = utilityData[state] || utilityData["DEFAULT"];
+                    const utility = stateData.utilities[utilityName] || stateData.utilities["Contact Your Local Utility"];
+                    const stateIncentive = stateData.stateIncentive;
+
+                    const utilityRebate = utility.calculation(systemSize, systemCost, efficiency);
+                    const federalCredit = systemCost * 0.26;
+                    const stateRebate = stateIncentive.value || 0;
+
+                    const totalIncentives = utilityRebate + federalCredit + stateRebate;
+                    const netSystemCost = systemCost - utilityRebate - stateRebate;
+                    const percentCovered = (totalIncentives / systemCost) * 100;
+
+                    // Update current results for sharing
+                    currentResults = {
+                        state: stateSelect.options[stateSelect.selectedIndex].text,
+                        utility: utilityName,
+                        systemSize: systemSize,
+                        systemCost: systemCost,
+                        utilityRebate: utilityRebate,
+                        stateIncentive: stateRebate,
+                        federalCredit: federalCredit,
+                        totalIncentives: totalIncentives
+                    };
+
+                    // Update UI
+                    utilityRebateEl.textContent = `$${utilityRebate.toLocaleString()}`;
+                    stateIncentiveEl.textContent = `$${stateRebate.toLocaleString()}`;
+                    federalCreditEl.textContent = `$${federalCredit.toLocaleString()}`;
+                    totalIncentivesEl.textContent = `$${totalIncentives.toLocaleString()}`;
+                    netCostEl.textContent = `$${Math.max(0, netSystemCost).toLocaleString()}`;
+                    percentCoveredEl.textContent = `${Math.min(100, percentCovered).toFixed(1)}%`;
+                    systemCostDisplayEl.textContent = `$${systemCost.toLocaleString()}`;
+
+                    utilityDetailsEl.innerHTML = `
+                        <div class="detail-item">
+                            <span class="detail-label">Utility Type:</span>
+                            <span class="detail-value">${utility.type}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Rebate Formula:</span>
+                            <span class="detail-value">${utility.incentive}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">System Size:</span>
+                            <span class="detail-value">${systemSize} tons</span>
+                        </div>
+                    `;
+
+                    stateDetailsEl.innerHTML = `
+                        <div class="detail-item">
+                            <span class="detail-label">Program:</span>
+                            <span class="detail-value">${stateIncentive.name}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Description:</span>
+                            <span class="detail-value">${stateIncentive.description}</span>
+                        </div>
+                    `;
+
+                    utilityInfoEl.innerHTML = `
+                        <div class="utility-name">${utilityName}</div>
+                        <p class="incentive-desc">${utility.type} offering ${utility.incentive} for geothermal heat pump installations.</p>
+                        <p class="incentive-desc"><a href="${utility.link}" target="_blank">Learn more about this program</a></p>
+                    `;
+
+                    // Show share section
+                    shareSection.style.display = 'block';
+
+                    showLoading(false);
+                }, 500);
+
+            } catch (error) {
+                console.error('Calculation error:', error);
+                showError('An error occurred during calculation. Please try again.');
+                showLoading(false);
+            }
+        }
+
+        // Initialize the calculator
+        document.addEventListener('DOMContentLoaded', function() {
+            updateUtilityOptions();
+            
+            systemSizeInput.addEventListener('input', function() {
+                if (this.value < 1) this.value = 1;
+                if (this.value > 20) this.value = 20;
+            });
+            
+            systemCostInput.addEventListener('input', function() {
+                if (this.value < 1000) this.value = 1000;
+            });
+
+            efficiencyInput.addEventListener('input', function() {
+                if (this.value < 10) this.value = 10;
+                if (this.value > 40) this.value = 40;
+            });
+        });
+    </script>
+</body>
+</html>
