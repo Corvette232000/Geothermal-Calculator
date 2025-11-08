@@ -4845,6 +4845,20 @@
                 resultsContent.innerHTML = '<div class="no-results"><p>No state incentives found for the selected state.</p></div>';
             }
         }
+ // Create safe link element
+        function createLinkElement(link, text) {
+            if (!link || link === "#" || link === "None" || link === "NONE") {
+                return `<span class="link-warning">No link available</span>`;
+            }
+            
+            // Ensure link has proper protocol
+            let safeLink = link;
+            if (!safeLink.startsWith('http://') && !safeLink.startsWith('https://')) {
+                safeLink = 'https://' + safeLink;
+            }
+            
+            return `<a href="${safeLink}" target="_blank" rel="noopener noreferrer" class="utility-link">${text}</a>`;
+        }
 
         // Calculate incentives
         function calculateIncentives() {
